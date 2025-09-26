@@ -8,6 +8,7 @@ import Quizzes from "../pages/Quizzes";
 import Leaderboard from "../pages/Leaderboard";
 import StudyPlanner from "../pages/StudyPlanner";
 import Settings from "../pages/Settings";
+import Wellness from "../pages/Wellness";
 import Users from "../pages/Users";
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -25,6 +26,7 @@ const Layout = () => {
             <Route path="/quizzes" element={<Quizzes />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="/study-planner" element={<StudyPlanner />} />
+            <Route path="/wellness" element={<Wellness />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/users" element={
               <ProtectedRoute requiredRole="admin">

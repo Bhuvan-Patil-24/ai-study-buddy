@@ -18,7 +18,7 @@ const Login = () => {
     setLoading(true);
     try {
       await login(form);
-      navigate("/dashboard");
+      navigate("/");
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
     } finally {
@@ -67,7 +67,7 @@ const Login = () => {
         </button>
         <div className="text-center text-sm text-gray-600">
           Don't have an account?{" "}
-          <Link to="/signup" className="text-purple-700 underline">
+          <Link to="/register" className="text-purple-700 underline">
             Create it
           </Link>
         </div>

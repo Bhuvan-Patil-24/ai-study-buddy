@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { register } from "../services/authService";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -19,22 +22,14 @@ const Register = () => {
     setError("");
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/v1/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      const data = await res.json();
-      if (res.ok && data.status === "success") {
-        alert("Registration successful! Please login.");
-        window.location.href = "/login";
-      } else {
-        throw new Error(data.message || "Registration failed");
-      }
+      await register(form);
+      alert("Registration successful! Please login.");
+      navigate("/login");
     } catch (err) {
-      setError(err.message);
+      setError(err.response?.data?.message || err.message || "Registration failed");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
@@ -104,12 +99,13 @@ const Register = () => {
         </button>
         <div className="mt-4 text-center text-sm text-gray-600">
           Already have an account?{" "}
-          <a
-            href="/login"
+          <button
+            type="button"
+            onClick={() => navigate("/login")}
             className="text-blue-700 hover:underline font-medium"
           >
             Login from here
-          </a>
+          </button>
         </div>
       </form>
     </div>

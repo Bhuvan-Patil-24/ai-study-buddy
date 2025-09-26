@@ -12,6 +12,7 @@ const Sidebar = () => {
     { path: '/quizzes', label: 'Quizzes & Mock Tests', icon: '✏️' },
     { path: '/leaderboard', label: 'Leaderboard', icon: '🏆' },
     { path: '/study-planner', label: 'Study Planner', icon: '📅' },
+    { path: '/wellness', label: 'Wellness Dashboard', icon: '🧠' },
     { path: '/settings', label: 'Settings / Profile', icon: '⚙️' }
   ]
 
@@ -22,6 +23,7 @@ const Sidebar = () => {
     { path: '/quizzes', label: 'Manage Quizzes', icon: '✏️' },
     { path: '/leaderboard', label: 'Leaderboard', icon: '🏆' },
     { path: '/study-planner', label: 'Study Planner', icon: '📅' },
+    { path: '/wellness', label: 'Wellness Analytics', icon: '🧠' },
     { path: '/users', label: 'Manage Users', icon: '👥' },
     { path: '/settings', label: 'Settings / Profile', icon: '⚙️' }
   ]

@@ -1,5 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { useState, useEffect } from "react";
+import DailyPsychologyTest from "../components/DailyPsychologyTest";
+import api from "../services/api";
 
 const weeklyProgress = [
   { day: "Mon", value: 75 },
@@ -14,6 +17,27 @@ const weeklyProgress = [
 const Dashboard = () => {
   const navigate = useNavigate();
   const { user, isAdmin, isStudent } = useAuth();
+  const [showPsychologyTest, setShowPsychologyTest] = useState(false);
+  const [todayTestStatus, setTodayTestStatus] = useState(null);
+
+  useEffect(() => {
+    checkTodayTestStatus();
+  }, []);
+
+  const checkTodayTestStatus = async () => {
+    try {
+      const response = await api.get("/v8/psychology/today-status");
+      const hasTakenToday = response.data.data.hasTakenToday;
+      setTodayTestStatus(response.data.data);
+      
+      // Show test if user hasn't taken it today and is a student
+      if (!hasTakenToday && isStudent()) {
+        setShowPsychologyTest(true);
+      }
+    } catch (error) {
+      console.error("Error checking test status:", error);
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -99,6 +123,17 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+
+      {/* Psychology Test Modal */}
+      {showPsychologyTest && (
+        <DailyPsychologyTest 
+          onClose={() => setShowPsychologyTest(false)}
+          onComplete={() => {
+            setShowPsychologyTest(false);
+            checkTodayTestStatus(); // Refresh status
+          }}
+        />
+      )}
     </div>
   );
 };
