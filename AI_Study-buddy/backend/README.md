@@ -1,1 +1,0 @@
-Backend of GATE Study Buddy
