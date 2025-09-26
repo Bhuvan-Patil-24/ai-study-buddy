@@ -10,6 +10,8 @@ import { dirname } from "path";
 import { AuthRoutes } from "./routes/auth.route.js";
 import { errorHandler } from "./middlewares/errorMiddleware.js";
 import { PsychologyRoutes } from "./routes/psychology.route.js";
+import { AIRoutes } from "./routes/ai.route.js";
+import { StudyRoomRoutes } from "./routes/studyRoom.route.js";
 
 dotenv.config();
 
@@ -66,6 +68,8 @@ app.get("/api/health", async (req, res) => {
 // routes main point handling
 app.use("/api/v1/auth", new AuthRoutes().getRouter());
 app.use("/api/v8/psychology", new PsychologyRoutes().getRouter());
+app.use("/api/ai", new AIRoutes().getRouter());
+app.use("/api/study-rooms", new StudyRoomRoutes().getRouter());
 
 app.use(errorHandler);
 

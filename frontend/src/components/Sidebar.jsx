@@ -17,14 +17,14 @@ const Sidebar = () => {
   ]
 
   const adminMenuItems = [
-    { path: '/', label: 'Admin Dashboard', icon: '🎓' },
-    { path: '/study-rooms', label: 'Manage Study Rooms', icon: '👥' },
-    { path: '/notes', label: 'Manage Notes', icon: '📚' },
-    { path: '/quizzes', label: 'Manage Quizzes', icon: '✏️' },
-    { path: '/leaderboard', label: 'Leaderboard', icon: '🏆' },
-    { path: '/study-planner', label: 'Study Planner', icon: '📅' },
-    { path: '/wellness', label: 'Wellness Analytics', icon: '🧠' },
-    { path: '/users', label: 'Manage Users', icon: '👥' },
+    { path: '/', label: 'Admin Dashboard', icon: '👑' },
+    { path: '/admin/users', label: 'User Management', icon: '👥' },
+    { path: '/admin/study-rooms', label: 'Study Room Management', icon: '🏠' },
+    { path: '/admin/content-ai', label: 'Content & AI Tools', icon: '📄' },
+    { path: '/admin/mock-tests', label: 'Mock Test Analytics', icon: '📊' },
+    { path: '/admin/leaderboards', label: 'Leaderboard Controls', icon: '🏆' },
+    { path: '/admin/system', label: 'System Monitoring', icon: '🔧' },
+    { path: '/admin/engagement', label: 'Engagement & Feedback', icon: '📈' },
     { path: '/settings', label: 'Settings / Profile', icon: '⚙️' }
   ]
 

@@ -25,6 +25,30 @@ const userSchema = new mongoose.Schema(
       default: 'student',
       required: true,
     },
+    stressLevel: {
+      type: String,
+      enum: ['low', 'moderate', 'high'],
+      default: 'moderate',
+    },
+    stressRecommendations: [String],
+    lastStressCheck: Date,
+    examPreference: String,
+    streak: {
+      type: Number,
+      default: 0,
+    },
+    leaderboardPoints: {
+      type: Number,
+      default: 0,
+    },
+    testsTaken: {
+      type: Number,
+      default: 0,
+    },
+    notesUploaded: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );
