@@ -12,7 +12,7 @@ export class AuthMiddleware {
       }
 
       const decoded = jwt.verify(token, process.env.SECRET_KEY);
-      const user = await User.findById(decoded.userID).select("-password");
+      const user = await User.findById(decoded.userId).select("-password");
       if (!user) {
         return response.error(null, "User not found", 404);
       }
