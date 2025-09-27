@@ -32,7 +32,16 @@ const Login = () => {
         className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md flex flex-col gap-4"
         onSubmit={handleSubmit}
       >
-        <h2 className="text-2xl font-bold text-purple-700 text-center">
+      <div className="text-center mb-4">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <div className="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-xl">📚</span>
+            </div>
+            <h1 className="text-2xl font-bold text-purple-700">GATE Study Buddy</h1>
+          </div>
+          <p className="text-sm text-gray-600">Your AI-powered study companion</p>
+        </div>        
+        <h2 className="text-xl font-bold text-purple-700 text-center">
           Login
         </h2>
         {error && (

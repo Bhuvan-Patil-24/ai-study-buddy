@@ -38,6 +38,15 @@ const Register = () => {
         onSubmit={handleSubmit}
         className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm border border-blue-200"
       >
+        <div className="text-center mb-6">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-xl">📚</span>
+            </div>
+            <h1 className="text-2xl font-bold text-blue-700">GATE Study Buddy</h1>
+          </div>
+          <p className="text-sm text-gray-600">Your AI-powered study companion</p>
+        </div>
         <h2 className="text-2xl font-bold mb-6 text-center text-blue-700">
           Sign Up
         </h2>
@@ -77,19 +86,6 @@ const Register = () => {
             minLength={6}
           />
         </div>
-        {/* <div className="mb-6">
-          <label className="block mb-1 font-medium">Role</label>
-          <select
-            name="role"
-            className="w-full px-3 py-2 border rounded"
-            value={form.role}
-            onChange={handleChange}
-            required
-          >
-            <option value="student">Student</option>
-            <option value="admin">Admin</option>
-          </select>
-        </div> */}
         <button
           type="submit"
           className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
