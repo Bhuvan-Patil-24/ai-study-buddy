@@ -40,12 +40,17 @@ const Dashboard = () => {
     checkStressCheckStatus();
   }, []);
 
-  const checkStressCheckStatus = () => {
-    const lastCheck = localStorage.getItem('lastStressCheck');
-    const today = new Date().toDateString();
-    
-    if (lastCheck !== today) {
-      setShowStressCheck(true);
+  const checkStressCheckStatus = async () => {
+    try {
+      const response = await api.get("/v8/psychology/today-status");
+      const lastCheck = response.data?.data?.lastStressCheck;
+      const today = new Date().toISOString().split('T')[0];
+      
+      if (!lastCheck || new Date(lastCheck).toISOString().split('T')[0] !== today) {
+        setShowStressCheck(true);
+      }
+    } catch (error) {
+      console.error("Error checking stress status:", error);
     }
   };
 

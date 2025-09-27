@@ -69,15 +69,20 @@ export const aiService = {
   },
 
   // Stress Level Analysis
-  async analyzeStressLevel(responses) {
-    try {
-      const response = await api.post("/ai/stress-analysis", { responses });
-      return response.data;
-    } catch (error) {
-      console.error("Error analyzing stress level:", error);
-      throw error;
+async analyzeStressLevel(req, res) {
+  const response = new ResponseHandler(res);
+  try {
+    const { responses } = req.body;
+    if (!responses) {
+      return response.error(null, "No responses provided", 400);
     }
-  },
-};
 
+    const result = await psychologyService.calculateStressLevel(responses);
+    return response.success(result, "Stress level analyzed successfully");
+  } catch (error) {
+    console.error("Error in stress analysis:", error);
+    return response.error(null, "Error analyzing stress level", 500);
+  }
+}
+}
 export default aiService;

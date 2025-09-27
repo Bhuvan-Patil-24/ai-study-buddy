@@ -52,6 +52,28 @@ export const studyRoomService = {
     }
   },
 
+  // Get Messages
+  async getMessages(roomId) {
+    try {
+      const response = await api.get(`/study-rooms/${roomId}/messages`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching messages:", error);
+      throw error;
+    }
+  },
+
+  // Send Message
+  async sendMessage(roomId, content) {
+    try {
+      const response = await api.post(`/study-rooms/${roomId}/messages`, { content });
+      return response.data;
+    } catch (error) {
+      console.error("Error sending message:", error);
+      throw error;
+    }
+  },
+
   // Leave Room
   async leaveRoom(roomId) {
     try {
@@ -97,6 +119,26 @@ export const studyRoomService = {
       throw error;
     }
   },
+  // Add file handling to sendMessage
+  async sendMessage(roomId, content, file = null) {
+    try {
+      const formData = new FormData();
+      formData.append('content', content);
+      if (file) {
+        formData.append('file', file);
+      }
+      
+      const response = await api.post(`/study-rooms/${roomId}/messages`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error sending message:", error);
+      throw error;
+    }
+  }
 };
 
 export default studyRoomService;

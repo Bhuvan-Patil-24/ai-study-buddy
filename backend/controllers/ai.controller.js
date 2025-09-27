@@ -36,15 +36,15 @@ export class AIController {
     try {
       const { content, contentType, subject, title } = req.body;
       const userId = req.user._id;
-
-      // Generate AI content
+  
+      // Generate AI content in parallel
       const [summary, flashcards, quiz] = await Promise.all([
         aiService.generateNoteSummary(content, contentType),
         aiService.generateFlashcards(content, subject),
-        aiService.generateQuiz(content, subject),
+        aiService.generateQuiz(content, subject)
       ]);
-
-      // Save note to database
+  
+      // Create new note
       const note = await Note.create({
         user: userId,
         title,
@@ -55,17 +55,19 @@ export class AIController {
           summary,
           flashcards,
           quiz,
-        },
+          generatedAt: new Date()
+        }
       });
-
+  
       response.success({
         note,
         summary,
         flashcards,
-        quiz,
-      }, "Note processed successfully");
+        quiz
+      }, "Content processed successfully");
     } catch (error) {
-      next(error);
+      console.error("Error in processNoteContent:", error);
+      response.error(null, "Error processing content", 500);
     }
   }
 

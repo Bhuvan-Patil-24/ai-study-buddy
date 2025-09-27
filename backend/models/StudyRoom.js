@@ -75,7 +75,27 @@ const studyRoomSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+const defaultRoom = {
+  name: "GATE CSE Discussion Room",
+  description: "Default room for discussing GATE CSE topics with AI assistance",
+  subject: "GATE CS",
+  difficulty: "intermediate",
+  maxMembers: 50,
+  isActive: true
+};
 
+// Add this to the StudyRoom model
+studyRoomSchema.statics.createDefaultRoom = async function(creatorId) {
+  const existingRoom = await this.findOne({ name: defaultRoom.name });
+  if (!existingRoom) {
+    return await this.create({
+      ...defaultRoom,
+      creator: creatorId,
+      members: [{ user: creatorId }]
+    });
+  }
+  return existingRoom;
+};
 // Index for better query performance
 studyRoomSchema.index({ subject: 1, isActive: 1 });
 studyRoomSchema.index({ creator: 1 });

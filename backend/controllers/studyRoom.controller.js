@@ -1,8 +1,90 @@
 import { StudyRoom } from "../models/StudyRoom.js";
 import { aiService } from "../services/ai.service.js";
 import ResponseHandler from "../utils/apiResponse.js";
+import { Server } from "socket.io";
 
 export class StudyRoomController {
+  constructor() {
+    this.io = null;
+  }
+
+  setSocketIO(io) {
+    this.io = io;
+  }
+
+  async getRooms(req, res, next) {
+    const response = new ResponseHandler(res);
+    try {
+      // Create default room if it doesn't exist
+      await StudyRoom.createDefaultRoom(req.user._id);
+      
+      const { subject, difficulty, isActive } = req.query;
+      let query = {};
+      if (subject) query.subject = subject;
+      if (difficulty) query.difficulty = difficulty;
+      if (isActive !== undefined) query.isActive = isActive === "true";
+
+      const rooms = await StudyRoom.find(query)
+        .populate("creator", "name email")
+        .populate("members.user", "name email")
+        .sort({ createdAt: -1 });
+
+      response.success({ rooms }, "Study rooms retrieved successfully");
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async sendMessage(req, res, next) {
+    const response = new ResponseHandler(res);
+    try {
+      const { roomId } = req.params;
+      const { content } = req.body;
+      const userId = req.user._id;
+
+      const room = await StudyRoom.findById(roomId);
+      if (!room) {
+        return response.error(null, "Study room not found", 404);
+      }
+
+      // Add message
+      const newMessage = {
+        user: userId,
+        content,
+        messageType: "user",
+      };
+      
+      room.messages.push(newMessage);
+      room.messageCount += 1;
+
+      // Generate AI summary every 10 messages
+      if (room.messageCount % 10 === 0) {
+        const recentMessages = room.messages.slice(-10);
+        const summary = await aiService.generateStudyRoomSummary(recentMessages);
+        
+        room.messages.push({
+          user: null,
+          content: `🤖 AI Summary: ${summary}`,
+          messageType: "ai",
+        });
+        room.lastAISummary = new Date();
+      }
+
+      await room.save();
+      await room.populate("messages.user", "name email");
+
+      // Emit new message to all room members
+      if (this.io) {
+        this.io.to(roomId).emit("newMessage", {
+          message: room.messages[room.messages.length - 1]
+        });
+      }
+
+      response.success({ message: room.messages[room.messages.length - 1] }, "Message sent successfully");
+    } catch (error) {
+      next(error);
+    }
+  }
   async createRoom(req, res, next) {
     const response = new ResponseHandler(res);
     try {

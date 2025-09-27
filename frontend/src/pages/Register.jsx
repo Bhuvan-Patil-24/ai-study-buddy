@@ -77,7 +77,7 @@ const Register = () => {
             minLength={6}
           />
         </div>
-        <div className="mb-6">
+        {/* <div className="mb-6">
           <label className="block mb-1 font-medium">Role</label>
           <select
             name="role"
@@ -89,7 +89,7 @@ const Register = () => {
             <option value="student">Student</option>
             <option value="admin">Admin</option>
           </select>
-        </div>
+        </div> */}
         <button
           type="submit"
           className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"

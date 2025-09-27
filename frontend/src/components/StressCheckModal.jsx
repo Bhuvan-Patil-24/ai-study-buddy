@@ -63,32 +63,42 @@ const StressCheckModal = ({ isOpen, onClose }) => {
   ];
 
   const handleAnswer = (answer) => {
+    if (!questions[currentQuestion]) return;
+  
     const newResponses = {
       ...responses,
       [questions[currentQuestion].id]: answer
     };
     setResponses(newResponses);
-
+  
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
     } else {
       handleSubmit(newResponses);
     }
   };
-
+  
   const handleSubmit = async (finalResponses) => {
     setLoading(true);
     try {
-      await aiService.analyzeStressLevel(finalResponses);
-      setCompleted(true);
-      
-      // Show motivational message after a delay
-      setTimeout(() => {
-        onClose();
-      }, 3000);
+      const response = await api.post("/api/v1/psychology/analyze-stress", {
+        responses: finalResponses
+      });
+  
+      if (response?.data?.data) {
+        setCompleted(true);
+        if (onComplete) {
+          onComplete(response.data.data);
+        }
+        setTimeout(() => {
+          onClose();
+        }, 3000);
+      } else {
+        throw new Error('Invalid response from server');
+      }
     } catch (error) {
       console.error("Error analyzing stress level:", error);
-      alert("Error analyzing stress level. Please try again.");
+      alert("We're having trouble analyzing your responses. Please try again later.");
     } finally {
       setLoading(false);
     }
