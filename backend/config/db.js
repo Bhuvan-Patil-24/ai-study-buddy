@@ -30,23 +30,23 @@ async function run() {
 }
 run().catch(console.dir);
 
-// export const connectDB = async () => {
-//   try {
-//     const mongoURI = process.env.MONGO_URI;
+export const connectDB = async () => {
+  try {
+    const mongoURI = process.env.MONGO_URI;
 
-//     logger.info(`Attempting to connect to MongoDB with URI: ${mongoURI}`);
+    logger.info(`Attempting to connect to MongoDB with URI: ${mongoURI}`);
     
-//     if (!mongoURI) {
-//       throw new Error('MongoDB URI is not defined in environment variables');
-//     }
+    if (!mongoURI) {
+      throw new Error('MongoDB URI is not defined in environment variables');
+    }
 
-  //   await mongoose.connect(mongoURI);
+    await mongoose.connect(mongoURI);
 
-  //   logger.info("MongoDB Connected");
-  //   printBanner("✅ MongoDB Connected", "📦 Connected to database successfully");
-  // } catch (err) {
-  //   logger.error(`MongoDB Error: ${err.message}`);
-  //   console.error('\x1b[31m%s\x1b[0m', `❌ MongoDB Error: ${err.message}`);
-  //   process.exit(1);
-  // }
-// };
+    logger.info("MongoDB Connected");
+    printBanner("✅ MongoDB Connected", "📦 Connected to database successfully");
+  } catch (err) {
+    logger.error(`MongoDB Error: ${err.message}`);
+    console.error('\x1b[31m%s\x1b[0m', `❌ MongoDB Error: ${err.message}`);
+    process.exit(1);
+  }
+};
