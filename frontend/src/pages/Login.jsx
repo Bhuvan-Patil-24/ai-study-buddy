@@ -27,25 +27,41 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-white px-2">
+    <div className="login-container" style={{
+      minHeight: "100vh",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      background: "linear-gradient(135deg, #e3f2fd 0%, #ffffff 100%)",
+      padding: "1rem"
+    }}>
       <form
-        className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm border border-blue-200"
+        className="login-form"
         onSubmit={handleSubmit}
+        style={{
+          background: "#fff",
+          padding: "2rem",
+          borderRadius: "16px",
+          boxShadow: "0 4px 24px rgba(33,150,243,0.08)",
+          width: "100%",
+          maxWidth: "400px",
+          border: "1px solid #bbdefb"
+        }}
       >
-      <div className="text-center mb-6">
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">📚</span>
+        <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
+            <div style={{ width: "40px", height: "40px", background: "#1976d2", borderRadius: "8px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <span style={{ color: "#fff", fontWeight: "bold", fontSize: "1.25rem" }}>📚</span>
             </div>
-            <h1 className="text-2xl font-bold text-blue-700">GATE Study Buddy</h1>
+            <h1 style={{ fontSize: "1.5rem", fontWeight: "bold", color: "#1976d2" }}>GATE Study Buddy</h1>
           </div>
-          <p className="text-sm text-gray-600">Your AI-powered study companion</p>
-        </div>        
-        <h2 className="text-xl font-bold mb-6 text-center text-blue-700">
+          <p style={{ fontSize: "0.95rem", color: "#607d8b" }}>Your AI-powered study companion</p>
+        </div>
+        <h2 style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "1.5rem", textAlign: "center", color: "#1976d2" }}>
           Login
         </h2>
         {error && (
-          <div className="bg-red-100 text-red-700 rounded p-2 text-center">
+          <div style={{ background: "#ffcdd2", color: "#d32f2f", borderRadius: "8px", padding: "0.75rem", textAlign: "center", marginBottom: "1rem" }}>
             {error}
           </div>
         )}
@@ -53,30 +69,60 @@ const Login = () => {
           type="email"
           name="email"
           placeholder="Email"
-          className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
           value={form.email}
           onChange={handleChange}
           required
+          style={{
+            width: "100%",
+            padding: "0.75rem 1rem",
+            border: "1px solid #90caf9",
+            borderRadius: "8px",
+            marginBottom: "1rem",
+            background: "#f5faff",
+            color: "#1a1a1a",
+            fontSize: "1rem"
+          }}
         />
         <input
           type="password"
           name="password"
           placeholder="Password"
-          className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
           value={form.password}
           onChange={handleChange}
           required
+          style={{
+            width: "100%",
+            padding: "0.75rem 1rem",
+            border: "1px solid #90caf9",
+            borderRadius: "8px",
+            marginBottom: "1rem",
+            background: "#f5faff",
+            color: "#1a1a1a",
+            fontSize: "1rem"
+          }}
         />
         <button
           type="submit"
-          className="bg-purple-700 text-white rounded py-2 font-semibold hover:bg-purple-800 transition disabled:opacity-50"
           disabled={loading}
+          style={{
+            width: "100%",
+            padding: "0.75rem",
+            borderRadius: "8px",
+            background: loading ? "#90caf9" : "#1976d2",
+            color: "#fff",
+            fontWeight: 600,
+            border: "none",
+            marginTop: "0.5rem",
+            fontSize: "1rem",
+            cursor: loading ? "not-allowed" : "pointer",
+            transition: "background 0.2s"
+          }}
         >
           {loading ? "Logging in..." : "Login"}
         </button>
-        <div className="text-center text-sm text-gray-600">
+        <div style={{ textAlign: "center", fontSize: "0.95rem", color: "#607d8b", marginTop: "1rem" }}>
           Don't have an account?{" "}
-          <Link to="/register" className="text-purple-700 underline">
+          <Link to="/register" style={{ color: "#1976d2", textDecoration: "underline" }}>
             Create it
           </Link>
         </div>
