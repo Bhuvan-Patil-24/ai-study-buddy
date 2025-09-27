@@ -44,7 +44,7 @@ export const connectDB = async () => {
 
     logger.info("MongoDB Connected");
     printBanner("✅ MongoDB Connected", "📦 Connected to database successfully");
-    document.write("✅ MongoDB Connected", "📦 Connected to database successfully");
+    // document.write("✅ MongoDB Connected", "📦 Connected to database successfully");
   } catch (err) {
     logger.error(`MongoDB Error: ${err.message}`);
     console.error('\x1b[31m%s\x1b[0m', `❌ MongoDB Error: ${err.message}`);
