@@ -17,8 +17,9 @@ const server = createServer(app);
 // Create Socket.IO instance
 const io = new Server(server, {
   cors: {
-    origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
-    methods: ["GET", "POST"]
+    origin: process.env.CORS_ORIGIN || 'https://ai-study-buddy-frontend-theta.vercel.app/',
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
 
