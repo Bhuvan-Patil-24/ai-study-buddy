@@ -27,21 +27,21 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-700 to-purple-400">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-white px-2">
       <form
-        className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md flex flex-col gap-4"
+        className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm border border-blue-200"
         onSubmit={handleSubmit}
       >
-      <div className="text-center mb-4">
+      <div className="text-center mb-6">
           <div className="flex items-center justify-center gap-2 mb-2">
-            <div className="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center">
+            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-xl">📚</span>
             </div>
-            <h1 className="text-2xl font-bold text-purple-700">GATE Study Buddy</h1>
+            <h1 className="text-2xl font-bold text-blue-700">GATE Study Buddy</h1>
           </div>
           <p className="text-sm text-gray-600">Your AI-powered study companion</p>
         </div>        
-        <h2 className="text-xl font-bold text-purple-700 text-center">
+        <h2 className="text-xl font-bold mb-6 text-center text-blue-700">
           Login
         </h2>
         {error && (
