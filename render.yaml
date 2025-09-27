@@ -14,7 +14,7 @@ services:
         value: 10000
       - key: MONGO_URI
         sync: false
-      - key: AI_API_URL
+      - key: SECRET_KEY
         sync: false
-      - key: AI_API_KEY
+      - key: GEMINI_API_KEY
         sync: false
